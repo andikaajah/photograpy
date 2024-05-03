@@ -3,12 +3,16 @@ import React from 'react'
 
 const Pengaturan = () => {
   return (
-    <View>
-      <Text>Pengaturan</Text>
+    <View style={styles.container}>
+      <Text>akun ini di desain dengan sebaik mungkin</Text>
     </View>
   )
 }
 
 export default Pengaturan
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    alignItems:'center'
+  }
+})
