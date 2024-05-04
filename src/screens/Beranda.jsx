@@ -8,6 +8,12 @@ const Beranda = () => {
       <Kartu gambar={require('../../assets/foto1.jpg')} judul="Pose prewedding"/>
       <Kartu gambar={require('../../assets/foto2.jpg')} judul="Pose prewedding 2"/>
       <Kartu gambar={require('../../assets/foto3.jpg')} judul="Pose wedding"/>
+      <Kartu gambar={require('../../assets/foto4.jpg')} judul="Pose wedding"/>
+      <Kartu gambar={require('../../assets/foto5.jpg')} judul="Pose wedding"/>
+      <Kartu gambar={require('../../assets/foto6.jpg')} judul="Pose wedding"/>
+      <Kartu gambar={require('../../assets/foto7.jpg')} judul="Pose wedding"/>
+      <Kartu gambar={require('../../assets/foto8.jpg')} judul="Pose wedding"/>
+      <Kartu gambar={require('../../assets/foto9.jpg')} judul="Pose wedding"/>
     </ScrollView>
   )
 }
