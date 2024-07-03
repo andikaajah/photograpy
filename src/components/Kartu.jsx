@@ -1,40 +1,67 @@
-import React from 'react';
-import { View, Image, StyleSheet, Text } from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, Image, Text, StyleSheet, View } from 'react-native';
 
 const Kartu = ({ gambar, judul }) => {
+  const [unduh, setUnduh] = useState(false);
+
+  const handleDownload = () => {
+    setUnduh(true);
+
+
+    setTimeout(() => {
+      setUnduh(false);
+    }, 2000);
+  };
+
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={gambar} />
-      <Text style={styles.judul}>{judul}</Text>
+    <View style={styles.card}>
+      <Image source={gambar} style={styles.image} />
+      <Text style={styles.title}>{judul}</Text>
+      {unduh ? (
+        <Text style={styles.downloadText}>Unduh berhasil!</Text>
+      ) : (
+        <TouchableOpacity style={styles.button} onPress={handleDownload}>
+          <Text style={styles.buttonText}>Unduh</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    paddingTop: 12,
-    borderRadius: 10,
-    backgroundColor: '#FFF',
-    marginHorizontal: 10,
+  card: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
     marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    alignItems: 'center',
   },
   image: {
-    width: 320,
-    height: 450,
-    borderRadius: 10,
+    width: 200,
+    height: 150,
+    borderRadius: 8,
     marginBottom: 10,
   },
-  judul: {
-    fontSize: 15, 
-    fontWeight: 'bold', 
-    textAlign: 'center',
-    marginTop: -8, 
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  button: {
+    backgroundColor: '#3498db',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  downloadText: {
+    marginTop: 10,
+    color: 'green',
+    fontWeight: 'bold',
   },
 });
 

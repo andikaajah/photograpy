@@ -10,7 +10,7 @@ const Pengaturan = () => {
 
       <ScrollView style={styles.listContainer}>
         <View style={styles.listItem}>
-          <Text>Nama Pengguna</Text>
+          <Text>Andika</Text>
           
         </View>
         <View style={styles.listItem}>
