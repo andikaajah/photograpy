@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Akun = () => {
+const Disukai = () => {
   return (
     <View style={styles.container}>
       <Text>silahkan hubungi Akun di bawah ini</Text>
@@ -10,7 +10,7 @@ const Akun = () => {
   )
 }
 
-export default Akun
+export default Disukai
 
 const styles = StyleSheet.create({
   container: {

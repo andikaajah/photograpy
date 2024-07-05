@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Akun from './screens/Akun';
+import Akun from './screens/Disukai';
 import Beranda from './screens/Beranda';
 import Pengaturan from './screens/Pengaturan';
 
@@ -23,10 +23,10 @@ function MyTabs() {
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}/>
-      <Tab.Screen name="Akun" component={Akun}  options={{
-          tabBarLabel: 'Akun',
+      <Tab.Screen name="Disukai" component={Akun}  options={{
+          tabBarLabel: 'Disukai',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons name="heart" color={color} size={26} />
           ),
         }}/>
       <Tab.Screen name="Pengaturan" component={Pengaturan}  options={{
