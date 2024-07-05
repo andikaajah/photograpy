@@ -28,10 +28,6 @@ const Profil = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Profil</Text>
-        </View>
 
         {/* Foto Profil */}
         <View style={styles.profileContainer}>
@@ -61,7 +57,7 @@ const Profil = () => {
               ) : (
                 <Text style={styles.value}>{nama}</Text>
               )}
-              <Text style={styles.description}>Ini bukan nama pengguna atau PIN Anda. Nama ini akan terlihat oleh kontak WhatsApp Anda.</Text>
+
             </View>
             <TouchableOpacity onPress={toggleEditNama}>
               <Icon name={editNama ? "checkmark" : "pencil"} size={24} color={editNama ? "green" : "grey"} />
@@ -121,11 +117,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignItems: 'center',
   },
-  headerText: {
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   profileContainer: {
     alignItems: 'center',
     marginTop: 20,
@@ -140,7 +131,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 100,
-    backgroundColor: 'blue',
+    backgroundColor: 'black',
     borderRadius: 20,
     padding: 5,
   },
@@ -160,14 +151,14 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    color: 'grey',
+    color: 'black',
   },
   value: {
     fontSize: 16,
     fontWeight: 'bold',
   },
   description: {
-    color: 'grey',
+    color: 'black',
     marginTop: 5,
     fontSize: 12,
   },
