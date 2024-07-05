@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const Profil = () => {
   const [nama, setNama] = useState('nama pengguna');
-  const [info, setInfo] = useState('invfo anda');
+  const [info, setInfo] = useState('info anda');
   const [telepon, setTelepon] = useState('+62 877-4044-0427');
   const [editNama, setEditNama] = useState(false);
   const [editInfo, setEditInfo] = useState(false);
+  const [profileImage, setProfileImage] = useState(require('../../assets/foto profile.jpg'));
 
   const toggleEditNama = () => {
     setEditNama(!editNama);
@@ -25,6 +27,21 @@ const Profil = () => {
     setEditInfo(false);
   };
 
+  const changeProfileImage = () => {
+    const options = {
+      mediaType: 'photo',
+      maxWidth: 200,
+      maxHeight: 200,
+      quality: 1,
+    };
+
+    launchImageLibrary(options, (response) => {
+      if (response.assets && response.assets.length > 0) {
+        setProfileImage({ uri: response.assets[0].uri });
+      }
+    });
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -32,10 +49,10 @@ const Profil = () => {
         {/* Foto Profil */}
         <View style={styles.profileContainer}>
           <Image
-            source={require('../../assets/foto8.jpg')} 
+            source={profileImage}
             style={styles.profileImage}
           />
-          <TouchableOpacity style={styles.cameraIconContainer} onPress={() => console.log("Ganti foto profil")}>
+          <TouchableOpacity style={styles.cameraIconContainer} onPress={changeProfileImage}>
             <Icon name="camera" size={24} color="#FFF" />
           </TouchableOpacity>
         </View>
@@ -57,7 +74,6 @@ const Profil = () => {
               ) : (
                 <Text style={styles.value}>{nama}</Text>
               )}
-
             </View>
             <TouchableOpacity onPress={toggleEditNama}>
               <Icon name={editNama ? "checkmark" : "pencil"} size={24} color={editNama ? "green" : "grey"} />
@@ -130,7 +146,7 @@ const styles = StyleSheet.create({
   cameraIconContainer: {
     position: 'absolute',
     bottom: 0,
-    right: 100,
+    right: 0,
     backgroundColor: 'black',
     borderRadius: 20,
     padding: 5,
