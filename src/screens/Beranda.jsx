@@ -4,8 +4,7 @@ import Kartu from '../components/Kartu';
 
 const Beranda = () => {
   const handleCardPress = (judul) => {
-    console.log(`Card '${judul}' clicked!`); 
-  
+    console.log(`Card '${judul}' clicked!`);
   };
 
   return (

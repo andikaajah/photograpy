@@ -44,7 +44,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Dika Photography" component={MyTabs} />
+        <Stack.Screen name="Photo Poses" component={MyTabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );

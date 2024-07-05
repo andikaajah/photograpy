@@ -7,7 +7,6 @@ const Kartu = ({ gambar, judul }) => {
   const handleDownload = () => {
     setUnduh(true);
 
-
     setTimeout(() => {
       setUnduh(false);
     }, 2000);
@@ -30,7 +29,7 @@ const Kartu = ({ gambar, judul }) => {
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#ccc',
     borderRadius: 8,
     padding: 10,
@@ -38,8 +37,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 200,
-    height: 150,
+    width:328,
+    height: 500,
     borderRadius: 8,
     marginBottom: 10,
   },
