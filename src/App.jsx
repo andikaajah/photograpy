@@ -7,7 +7,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import Akun from './screens/Disukai';
 import Beranda from './screens/Beranda';
-import Pengaturan from './screens/Pengaturan';
+import Pengaturan from './screens/Profil';
+import Profil from './screens/Profil';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,10 +30,10 @@ function MyTabs() {
             <MaterialCommunityIcons name="heart" color={color} size={26} />
           ),
         }}/>
-      <Tab.Screen name="Pengaturan" component={Pengaturan}  options={{
-          tabBarLabel: 'Pengaturan',
+      <Tab.Screen name="Profil" component={Profil}  options={{
+          tabBarLabel: 'Profil',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="cog" color={color} size={26} />
+            <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
         }}/>
     </Tab.Navigator>
