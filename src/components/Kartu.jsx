@@ -1,23 +1,19 @@
 import React from 'react';
-import { Image, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const Kartu = ({ gambar, judul, onDoubleTap }) => {
-  let lastTap = null;
-
-  const handleDoubleTap = () => {
-    const now = Date.now();
-    if (lastTap && (now - lastTap) < 300) {
-      onDoubleTap();
-    } else {
-      lastTap = now;
-    }
-  };
-
+const Kartu = ({ gambar, judul, likes, onDoubleTap, onFavorite, isFavorite }) => {
   return (
-    <TouchableOpacity onPress={handleDoubleTap} activeOpacity={1}>
+    <TouchableOpacity onDoubleTap={onDoubleTap}>
       <View style={styles.card}>
         <Image source={gambar} style={styles.image} />
-        <Text style={styles.title}>{judul}</Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.title}>{judul}</Text>
+          <Text>{`Likes: ${likes}`}</Text>
+        </View>
+        <TouchableOpacity onPress={onFavorite} style={styles.favoriteButton}>
+          <FontAwesome name={isFavorite ? 'heart' : 'heart-o'} size={24} color="red" />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -25,22 +21,27 @@ const Kartu = ({ gambar, judul, onDoubleTap }) => {
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 2,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 8,
-    marginBottom: 10,
-    alignItems: 'center',
+    marginBottom: 20,
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    elevation: 3, // For shadow effect on Android
   },
   image: {
-    width: 328,
-    height: 500,
-    borderRadius: 8,
-    marginBottom: 10,
+    width: '100%',
+    height: 300, // Increased height for a larger image
+  },
+  infoContainer: {
+    padding: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
 

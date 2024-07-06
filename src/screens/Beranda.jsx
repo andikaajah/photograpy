@@ -7,15 +7,16 @@ import Kartu from '../components/Kartu';
 const Beranda = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [cards, setCards] = useState([
-    { gambar: require('../../assets/foto1.jpg'), judul: 'Pose prewedding', likes: 0 },
-    { gambar: require('../../assets/foto2.jpg'), judul: 'Pose prewedding 2', likes: 0 },
-    { gambar: require('../../assets/foto3.jpg'), judul: 'Pose wedding', likes: 0 },
-    { gambar: require('../../assets/foto4.jpg'), judul: 'Pose wedding', likes: 0 },
-    { gambar: require('../../assets/foto5.jpg'), judul: 'Pose wedding', likes: 0 },
-    { gambar: require('../../assets/foto6.jpg'), judul: 'Pose wedding', likes: 0 },
-    { gambar: require('../../assets/foto7.jpg'), judul: 'Pose wedding', likes: 0 },
-    { gambar: require('../../assets/foto8.jpg'), judul: 'Pose wedding', likes: 0 },
-    { gambar: require('../../assets/foto9.jpg'), judul: 'Pose wedding', likes: 0 },
+    { gambar: require('../../assets/foto1.jpg'), judul: 'Pose prewedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto2.jpg'), judul: 'Pose prewedding 2', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto3.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto4.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto5.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto6.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto7.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto8.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/foto9.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { gambar: require('../../assets/1.jpg'), judul: 'cowok cull', likes: 0, isFavorite: false },
   ]);
 
   const scrollViewRef = useRef(null); 
@@ -36,7 +37,13 @@ const Beranda = ({ navigation }) => {
       c.judul === card.judul ? { ...c, likes: c.likes + 1 } : c
     );
     setCards(updatedCards);
-    navigation.navigate('Disukai', { likedCard: card });
+  };
+
+  const handleFavorite = (judul) => {
+    const updatedCards = cards.map(card =>
+      card.judul === judul ? { ...card, isFavorite: !card.isFavorite } : card
+    );
+    setCards(updatedCards);
   };
 
   const handleSearch = (text) => {
@@ -58,7 +65,7 @@ const Beranda = ({ navigation }) => {
           console.log('ImagePicker Error: ', response.errorCode);
         } else {
           const source = { uri: response.assets[0].uri };
-          const newCard = { gambar: source, judul: 'New Image', likes: 0 };
+          const newCard = { gambar: source, judul: 'New Image', likes: 0, isFavorite: false };
           setCards([...cards, newCard]);
         }
       }
@@ -120,11 +127,9 @@ const Beranda = ({ navigation }) => {
               judul={card.judul}
               likes={card.likes}
               onDoubleTap={() => handleDoubleTap(card)}
+              onFavorite={() => handleFavorite(card.judul)}
+              isFavorite={card.isFavorite}
             />
-            <TouchableOpacity onPress={() => handleCardPress(card.judul)} style={styles.loveButton}>
-              <FontAwesome name="heart" size={24} color="red" />
-              <Text style={styles.loveText}>{`Love (${card.likes})`}</Text>
-            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
@@ -162,18 +167,6 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 10,
-  },
-  loveButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 5,
-  },
-  loveText: {
-    marginLeft: 5,
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'red',
   },
 });
 
