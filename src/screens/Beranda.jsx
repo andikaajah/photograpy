@@ -7,16 +7,16 @@ import Kartu from '../components/Kartu';
 const Beranda = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [cards, setCards] = useState([
-    { gambar: require('../../assets/foto1.jpg'), judul: 'Pose prewedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto2.jpg'), judul: 'Pose prewedding 2', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto3.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto4.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto5.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto6.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto7.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto8.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/foto9.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
-    { gambar: require('../../assets/1.jpg'), judul: 'cowok cull', likes: 0, isFavorite: false },
+    { id: 1, gambar: require('../../assets/foto1.jpg'), judul: 'Pose prewedding', likes: 0, isFavorite: false },
+    { id: 2, gambar: require('../../assets/foto2.jpg'), judul: 'Pose prewedding 2', likes: 0, isFavorite: false },
+    { id: 3, gambar: require('../../assets/foto3.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { id: 4, gambar: require('../../assets/foto4.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { id: 5, gambar: require('../../assets/foto5.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { id: 6, gambar: require('../../assets/foto6.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { id: 7, gambar: require('../../assets/foto7.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { id: 8, gambar: require('../../assets/foto8.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { id: 9, gambar: require('../../assets/foto9.jpg'), judul: 'Pose wedding', likes: 0, isFavorite: false },
+    { id: 10, gambar: require('../../assets/1.jpg'), judul: 'cowok cool', likes: 0, isFavorite: false },
   ]);
 
   const scrollViewRef = useRef(null); 
@@ -25,25 +25,23 @@ const Beranda = ({ navigation }) => {
     requestStoragePermission(); 
   }, []);
 
-  const handleCardPress = (judul) => {
+  const handleDoubleTap = (id) => {
     const updatedCards = cards.map(card =>
-      card.judul === judul ? { ...card, likes: card.likes + 1 } : card
+      card.id === id ? { ...card, likes: card.likes + 1 } : card
     );
     setCards(updatedCards);
   };
 
-  const handleDoubleTap = (card) => {
-    const updatedCards = cards.map(c =>
-      c.judul === card.judul ? { ...c, likes: c.likes + 1 } : c
-    );
-    setCards(updatedCards);
-  };
-
-  const handleFavorite = (judul) => {
+  const handleFavorite = (id) => {
     const updatedCards = cards.map(card =>
-      card.judul === judul ? { ...card, isFavorite: !card.isFavorite } : card
+      card.id === id ? { ...card, isFavorite: !card.isFavorite } : card
     );
     setCards(updatedCards);
+
+    const likedCard = updatedCards.find(card => card.id === id && card.isFavorite);
+    if (likedCard) {
+      navigation.navigate('Disukai', { likedCard });
+    }
   };
 
   const handleSearch = (text) => {
@@ -65,7 +63,7 @@ const Beranda = ({ navigation }) => {
           console.log('ImagePicker Error: ', response.errorCode);
         } else {
           const source = { uri: response.assets[0].uri };
-          const newCard = { gambar: source, judul: 'New Image', likes: 0, isFavorite: false };
+          const newCard = { id: cards.length + 1, gambar: source, judul: 'New Image', likes: 0, isFavorite: false };
           setCards([...cards, newCard]);
         }
       }
@@ -120,15 +118,15 @@ const Beranda = ({ navigation }) => {
         ref={scrollViewRef}
         contentContainerStyle={styles.cardContainer}
       >
-        {filteredCards.map((card, index) => (
-          <View key={index} style={styles.card}>
+        {filteredCards.map((card) => (
+          <View key={card.id} style={styles.card}>
             <Kartu
               gambar={card.gambar}
               judul={card.judul}
               likes={card.likes}
-              onDoubleTap={() => handleDoubleTap(card)}
-              onFavorite={() => handleFavorite(card.judul)}
               isFavorite={card.isFavorite}
+              onDoubleTap={() => handleDoubleTap(card.id)}
+              onFavorite={() => handleFavorite(card.id)}
             />
           </View>
         ))}
@@ -140,6 +138,7 @@ const Beranda = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
     padding: 10,
   },
   searchBar: {
@@ -155,6 +154,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
+    marginBottom: 10,
   },
   uploadText: {
     marginLeft: 5,
