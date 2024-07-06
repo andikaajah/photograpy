@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const Profil = () => {
   const [nama, setNama] = useState('nama pengguna');
   const [info, setInfo] = useState('info anda');
-  const [telepon, setTelepon] = useState('+62 877-4044-0427');
+  const [telepon, setTelepon] = useState('Andika1056@gmail.com');
   const [editNama, setEditNama] = useState(false);
   const [editInfo, setEditInfo] = useState(false);
   const [profileImage, setProfileImage] = useState(require('../../assets/foto profile.jpg'));
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalImage, setModalImage] = useState('');
 
   const toggleEditNama = () => {
     setEditNama(!editNama);
@@ -42,12 +44,17 @@ const Profil = () => {
     });
   };
 
+  const openImageModal = (imageUri) => {
+    setModalImage(imageUri);
+    setModalVisible(true);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
 
-        {/* Foto Profil */}
-        <View style={styles.profileContainer}>
+        {}
+        <TouchableOpacity style={styles.profileContainer} onPress={() => openImageModal(profileImage.uri)}>
           <Image
             source={profileImage}
             style={styles.profileImage}
@@ -55,9 +62,9 @@ const Profil = () => {
           <TouchableOpacity style={styles.cameraIconContainer} onPress={changeProfileImage}>
             <Icon name="camera" size={24} color="#FFF" />
           </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
 
-        {/* Info Profil */}
+        {}
         <View style={styles.infoContainer}>
           <View style={styles.infoRow}>
             <Icon name="person-outline" size={24} color="grey" />
@@ -104,12 +111,30 @@ const Profil = () => {
           <View style={styles.infoRow}>
             <Icon name="call-outline" size={24} color="grey" />
             <View style={styles.infoTextContainer}>
-              <Text style={styles.label}>Telepon</Text>
+              <Text style={styles.label}>Gmail</Text>
               <Text style={styles.value}>{telepon}</Text>
             </View>
           </View>
         </View>
       </ScrollView>
+
+      {}
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
+            <Icon name="close" size={24} color="#FFF" />
+          </TouchableOpacity>
+          <Image
+            source={{ uri: modalImage }}
+            style={styles.modalImage}
+            resizeMode="contain"
+          />
+        </View>
+      </Modal>
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>Akun ini didesain dengan sebaik mungkin</Text>
@@ -189,6 +214,22 @@ const styles = StyleSheet.create({
   },
   footerText: {
     color: '#757575',
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalImage: {
+    width: '90%',
+    height: '90%',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    zIndex: 1,
   },
 });
 

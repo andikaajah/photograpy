@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, Image, Text, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { Image, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 
-const Kartu = ({ gambar, judul }) => {
-  const [unduh, setUnduh] = useState(false);
+const Kartu = ({ gambar, judul, onDoubleTap }) => {
+  let lastTap = null;
 
-  const handleDownload = () => {
-    setUnduh(true);
-
-    setTimeout(() => {
-      setUnduh(false);
-    }, 2000);
+  const handleDoubleTap = () => {
+    const now = Date.now();
+    if (lastTap && (now - lastTap) < 300) {
+      onDoubleTap();
+    } else {
+      lastTap = now;
+    }
   };
 
   return (
-    <View style={styles.card}>
-      <Image source={gambar} style={styles.image} />
-      <Text style={styles.title}>{judul}</Text>
-      {unduh ? (
-        <Text style={styles.downloadText}>Unduh berhasil!</Text>
-      ) : (
-        <TouchableOpacity style={styles.button} onPress={handleDownload}>
-          <Text style={styles.buttonText}>Unduh</Text>
-        </TouchableOpacity>
-      )}
-    </View>
+    <TouchableOpacity onPress={handleDoubleTap} activeOpacity={1}>
+      <View style={styles.card}>
+        <Image source={gambar} style={styles.image} />
+        <Text style={styles.title}>{judul}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -37,29 +33,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width:328,
+    width: 328,
     height: 500,
     borderRadius: 8,
     marginBottom: 10,
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
-  },
-  button: {
-    backgroundColor: '#3498db',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  downloadText: {
-    marginTop: 10,
-    color: 'green',
     fontWeight: 'bold',
   },
 });
