@@ -137,7 +137,7 @@ const Profil = () => {
       </Modal>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Akun ini didesain dengan sebaik mungkin</Text>
+        <Text style={styles.footerText}>Akun Aplikasi Anda</Text>
       </View>
     </View>
   );
